@@ -9,6 +9,13 @@ export class TasksController {
   @Get()
   getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
     return Object.keys(filterDto).length
+      ? this.tasksService.getTasksWithFilters(filterDto)
+      : this.tasksService.getAllTasks();
+  }
+
+  @Get('/:id')
+  getTaskById(@Param('id') id: string): Task {
+    return this.tasksService.getTaskById(id);
   }
 
   @Post()
